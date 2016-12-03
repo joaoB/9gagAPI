@@ -1,6 +1,6 @@
 import java.net.URLDecoder
 
-case class Gag(title: String, preview: String, url: String, votes: Int, comments: Int)
+case class Gag(title: String, contentUrl: String, votes: Int, comments: Int, gagUrl: String)
 
 object Solution {
 
@@ -32,8 +32,8 @@ object Solution {
     //clean size = 5 -> images
     //clean size = 6 -> movies
     val gags = clean map {
-      case gag if gag.length == 5 => Gag(gag(1), )
-      case gag if gag.length == 6 => 2
+      case gag if gag.length == 5 => Gag(gag(0), """badge-item-img src=(.*) alt""".r.findFirstMatchIn(gag(1)).map(_ group 1).getOrElse(""), gag(2).toInt, gag(3).toInt, gag(4))
+      case gag if gag.length == 6 => //todo
       case _ => ???// should not happen
     }
 
