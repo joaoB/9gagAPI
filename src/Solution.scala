@@ -1,6 +1,6 @@
 import java.net.URLDecoder
 
-class Gag(title: String, url: String, votes: Int, comments: Int)
+case class Gag(title: String, preview: String, url: String, votes: Int, comments: Int)
 
 object Solution {
 
@@ -14,7 +14,7 @@ object Solution {
     val usefullInfo = rawInfo.filter(pattern.findFirstIn(_).isDefined).map {
       elem => """[a-z-]+=(.*)""".r.findFirstMatchIn(elem).map(_ group 1)
     } flatten
-    
+
     //group info: each list has info about a gag -- 
     val asList = usefullInfo.foldLeft(List.empty[List[String]]) {
       case (acc, ele) if ele.contains("http") && !ele.contains(".mp4") && !ele.contains(".jpg") => acc :+ List(ele)
@@ -31,8 +31,13 @@ object Solution {
 
     //clean size = 5 -> images
     //clean size = 6 -> movies
-    clean
-    
+    val gags = clean map {
+      case gag if gag.length == 5 => Gag(gag(1), )
+      case gag if gag.length == 6 => 2
+      case _ => ???// should not happen
+    }
+
+    gags
   }
 
   def main(args: Array[String]) = {
