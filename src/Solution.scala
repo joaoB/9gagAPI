@@ -12,6 +12,7 @@ object Solution {
     val url = "http://www.9gag.com"
     val doc = Jsoup.connect(url).get
     println(doc.select(".badge-item-img"))
+     println(doc.select(".badge-item-img"))
     
     
     val content = get(url)
