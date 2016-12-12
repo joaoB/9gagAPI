@@ -13,6 +13,7 @@ object Solution {
     val doc = Jsoup.connect(url).get
     println(doc.select(".badge-item-img"))
     
+    
     val content = get(url)
     val rawInfo = content.split("\n").filterNot(_ == "")
     val pattern = "badge-item-img|badge-animated-container-animated|data-title=|(data-entry-(url|votes|comments)=)".r
