@@ -1,4 +1,5 @@
 import java.net.URLDecoder
+import org.jsoup.Jsoup
 
 case class Gag(title: String, contentUrl: String, votes: Int, comments: Int, gagUrl: String, id: String)
 
@@ -6,8 +7,13 @@ object Solution {
 
   def get(url: String) = scala.io.Source.fromURL(url).mkString
 
+  
   def solution = {
     val url = "http://www.9gag.com"
+    val doc = Jsoup.connect(url).get
+    println(doc.select(".badge-item-img"))
+    
+    
     val content = get(url)
     val rawInfo = content.split("\n").filterNot(_ == "")
     val pattern = "badge-item-img|badge-animated-container-animated|data-title=|(data-entry-(url|votes|comments)=)".r
